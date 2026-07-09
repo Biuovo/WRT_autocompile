@@ -162,7 +162,7 @@ install_custom_feed() {
         luci-app-quickstart luci-app-store luci-app-homeproxy luci-app-mosdns
         luci-app-passwall nikki luci-app-nikki mihomo-meta
         momo luci-app-momo
-        luci-app-store quickstart luci-app-quickstart luci-app-istorex luci-lib-taskd taskd luci-lib-xterm
+        # iStore required dirs disabled by user request
         open-app-filter luci-app-oaf lucky luci-app-lucky luci-app-easytier
     )
     local custom_feed_sources=()
@@ -187,7 +187,7 @@ install_custom_feed() {
         "Openwrt-Passwall/openwrt-passwall|https://github.com/Openwrt-Passwall/openwrt-passwall.git|main|luci-app-passwall"
         "nikkinikki-org/OpenWrt-nikki|https://github.com/nikkinikki-org/OpenWrt-nikki.git|main|nikki luci-app-nikki mihomo-meta"
         "nikkinikki-org/OpenWrt-momo|https://github.com/nikkinikki-org/OpenWrt-momo.git|main|momo luci-app-momo"
-        "linkease/istore|https://github.com/linkease/istore.git|main|luci-lib-taskd taskd luci-lib-xterm luci-app-store quickstart luci-app-quickstart luci-app-istorex"
+        # iStore disabled by user request; do not pull linkease/istore here
     )
 
     feeds_path=$(get_feeds_path)
@@ -234,7 +234,7 @@ verify_custom_feed_installed_paths() {
         luci-app-adguardhome luci-app-mosdns v2ray-geodata luci-app-easytier
         luci-app-passwall nikki luci-app-nikki mihomo-meta
         momo luci-app-momo
-        luci-app-store quickstart luci-app-quickstart luci-app-istorex luci-lib-taskd taskd luci-lib-xterm
+        # iStore required dirs disabled by user request
     )
     local missing_package_dirs=()
 

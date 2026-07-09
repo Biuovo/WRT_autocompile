@@ -180,12 +180,8 @@ apply_config() {
     
     if grep -qE "(ipq60xx|ipq807x)" "$BASE_PATH/../$BUILD_DIR/.config" &&
         ! grep -q "CONFIG_GIT_MIRROR" "$BASE_PATH/../$BUILD_DIR/.config"; then
-        # nowifi 设备跳过 nss.config 中的无线选项，改用 nss-wifi-off.config
-        if echo "$Dev" | grep -q "nowifi"; then
-            cat "$BASE_PATH/deconfig/nss-wifi-off.config" >> "$BASE_PATH/../$BUILD_DIR/.config"
-        else
-            cat "$BASE_PATH/deconfig/nss.config" >> "$BASE_PATH/../$BUILD_DIR/.config"
-        fi
+        # 用户要求关闭无线：IPQ60xx/IPQ807x 统一加载 nowifi NSS 配置，避免 ath11k/ath12k/mac80211 构建
+        cat "$BASE_PATH/deconfig/nss-wifi-off.config" >> "$BASE_PATH/../$BUILD_DIR/.config"
     fi
 
     cat "$BASE_PATH/deconfig/compile_base.config" >> "$BASE_PATH/../$BUILD_DIR/.config"

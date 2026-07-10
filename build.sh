@@ -206,6 +206,17 @@ fi
 
 "$BASE_PATH/update.sh" "$REPO_URL" "$REPO_BRANCH" "$BUILD_DIR" "$COMMIT_HASH"
 
+# Taiyi ER1 has been verified stable on kernel 6.12; 6.18.x builds may boot but LAN DHCP can fail.
+if [[ "$Dev" == "jdcloud_ipq60xx_immwrt_kmod" ]]; then
+    KERNEL_MAKEFILE="$BASE_PATH/../$BUILD_DIR/target/linux/qualcommax/Makefile"
+    echo ">>> Checking Taiyi ER1 kernel version in $KERNEL_MAKEFILE"
+    grep -n "KERNEL_PATCHVER" "$KERNEL_MAKEFILE"
+    grep -q '^KERNEL_PATCHVER:=6\.12$' "$KERNEL_MAKEFILE" || {
+        echo "ERROR: jdcloud_ipq60xx_immwrt_kmod must use kernel 6.12 for Taiyi ER1 stability." >&2
+        exit 1
+    }
+fi
+
 apply_config
 remove_uhttpd_dependency
 
